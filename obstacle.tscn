@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://undxw2slw8k2"]
+
+[ext_resource type="Texture2D" uid="uid://c47gd0bhmobg4" path="res://Assets-TappyPlane/Obstacle.png" id="1_a6lgr"]
+
+[node name="obstacle" type="Area2D" groups=["Dynamic_Object"]]
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a6lgr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -59)
+polygon = PackedVector2Array(-55, -59, 50, -60, 11, 184)
