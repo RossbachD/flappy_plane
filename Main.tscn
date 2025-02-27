@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b85st4vdsjh2o"]
+[gd_scene load_steps=14 format=3 uid="uid://b85st4vdsjh2o"]
 
 [ext_resource type="Texture2D" uid="uid://c21gopu53bbfn" path="res://Assets-TappyPlane/Background.png" id="1_cl6rx"]
 [ext_resource type="Script" path="res://main.gd" id="1_khdw4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://player.gd" id="4_6l3m2"]
 [ext_resource type="FontFile" uid="uid://u2er5rk8jeg" path="res://Assets-TappyPlane/kenvector_future.ttf" id="6_cb86u"]
 [ext_resource type="PackedScene" uid="uid://undxw2slw8k2" path="res://obstacle.tscn" id="7_q38ju"]
+[ext_resource type="Script" path="res://game_over.gd" id="9_ymvu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tkkhe"]
 radius = 39.1827
@@ -47,11 +48,13 @@ texture = ExtResource("1_cl6rx")
 position = Vector2(1200, 0)
 texture = ExtResource("1_cl6rx")
 
-[node name="Player" type="RigidBody2D" parent="."]
+[node name="Player" type="RigidBody2D" parent="." groups=["Player"]]
 position = Vector2(171, 480)
 mass = 2.2
 gravity_scale = 1.6
 continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("4_6l3m2")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -111,5 +114,66 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Game_Over" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_ymvu8")
+
+[node name="background" type="ColorRect" parent="Game_Over"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="game_over" type="Label" parent="Game_Over"]
+z_index = 11
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -217.0
+offset_top = -55.0
+offset_right = 217.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Game Over
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="play_again" type="Button" parent="Game_Over"]
+process_mode = 3
+z_index = 11
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_top = -305.0
+offset_right = 185.0
+offset_bottom = -240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_cb86u")
+theme_override_font_sizes/font_size = 50
+text = "Play Again
+"
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="coin_timer" to="." method="_on_coin_timer_timeout"]
+[connection signal="pressed" from="Game_Over/play_again" to="Game_Over" method="_on_play_again_pressed"]

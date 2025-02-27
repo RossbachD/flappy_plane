@@ -1,12 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0qmk5rn83h58"]
+[gd_scene load_steps=4 format=3 uid="uid://d0qmk5rn83h58"]
 
 [ext_resource type="Texture2D" uid="uid://bunti0tky1it5" path="res://Assets-TappyPlane/Coin.png" id="1_pjvs6"]
+
+[sub_resource type="GDScript" id="GDScript_w0788"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p8nf3"]
 radius = 56.3205
 
 [node name="Coin" type="Area2D" groups=["Dynamic_Object"]]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_w0788")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_pjvs6")
